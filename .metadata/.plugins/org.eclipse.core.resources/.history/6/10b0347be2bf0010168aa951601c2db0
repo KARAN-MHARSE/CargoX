@@ -1,0 +1,47 @@
+package com.shipment.shipment_service.model;
+
+@Entity
+@Table(name = "shipments")
+public class Shipment {
+    public enum Status { CREATED, ASSIGNED, IN_TRANSIT, DELIVERED, CANCELLED }
+
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @ManyToOne
+    @JoinColumn(name = "origin_id")
+    private Location origin;
+
+    @ManyToOne
+    @JoinColumn(name = "destination_id")
+    private Location destination;
+
+    private Integer weightKg;
+    private BigDecimal distanceKm;
+    private BigDecimal costEstimate;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.CREATED;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+    private LocalDateTime scheduledPickup;
+    private LocalDateTime expectedDelivery;
+    private LocalDateTime actualDelivery;
+
+    @OneToMany(mappedBy = "shipment")
+    private List<ShipmentAssignment> assignments;
+
+    @OneToOne(mappedBy = "shipment")
+    private Invoice invoice;
+}

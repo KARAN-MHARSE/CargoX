@@ -1,0 +1,37 @@
+package com.shipment.shipment_service.model;
+
+@Entity
+@Table(name = "shipment_assignments")
+public class ShipmentAssignment {
+    public enum Status { PENDING, ACCEPTED, REJECTED, STARTED, COMPLETED, CANCELLED }
+
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
+
+    @ManyToOne
+    @JoinColumn(name = "assigned_by")
+    private User assignedBy;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.PENDING;
+
+    private LocalDateTime assignedAt = LocalDateTime.now();
+    private LocalDateTime acceptedAt;
+    private LocalDateTime startedAt;
+    private LocalDateTime completedAt;
+    private LocalDateTime cancelledAt;
+}
+

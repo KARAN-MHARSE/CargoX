@@ -1,0 +1,5 @@
+package com.shipment.location_service.model;
+
+public class Location {
+
+}

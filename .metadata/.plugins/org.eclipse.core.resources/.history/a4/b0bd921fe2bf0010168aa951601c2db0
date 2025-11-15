@@ -1,0 +1,28 @@
+package com.shipment.payment_service.model;
+
+@Entity
+@Table(name = "payments")
+public class Payment {
+    public enum Mode { CASH, UPI, CARD, ACCOUNT }
+    public enum Status { INITIATED, SUCCESS, FAILED }
+
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
+
+    private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
+    private Mode mode;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.INITIATED;
+
+    private String transactionRef;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
+}

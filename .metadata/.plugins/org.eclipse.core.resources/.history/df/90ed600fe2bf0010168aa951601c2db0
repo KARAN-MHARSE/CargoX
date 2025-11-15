@@ -1,0 +1,23 @@
+package com.shipment.invoice_service.model;
+
+@Entity
+@Table(name = "invoices")
+public class Invoice {
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @OneToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
+
+    private BigDecimal totalDistanceKm;
+    private BigDecimal totalAmount;
+    private String paymentStatus = "PENDING";
+    private LocalDateTime generatedAt = LocalDateTime.now();
+    private LocalDateTime paidAt;
+
+    @OneToMany(mappedBy = "invoice")
+    private List<Payment> payments;
+}
+

@@ -1,0 +1,5 @@
+package com.shipment.company_service.model;
+
+public class Company {
+
+}

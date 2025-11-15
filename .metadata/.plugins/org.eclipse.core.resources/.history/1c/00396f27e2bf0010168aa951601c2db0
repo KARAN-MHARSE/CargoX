@@ -1,0 +1,5 @@
+package com.shipment.driver_service.model;
+
+public class Driver {
+
+}
